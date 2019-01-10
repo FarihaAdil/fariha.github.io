@@ -1,4 +1,3 @@
-
 /*
  * We trigger the factory() function is different
  * ways to support modular JavaScript libraries. See
@@ -48,7 +47,7 @@
         this.initials = {
           currSlide : 0,
           $currSlide: null,
-          totalSlides : false,
+          totalSlides : 2,
           csstransitions: false
         };
         
@@ -423,3 +422,102 @@
         e.style.display = 'grid';
     }
 }
+
+
+
+
+
+
+
+$('#carouselExample').on('slide.bs.carousel', function (e) {
+
+    
+  
+    var $e = $(e.relatedTarget);
+    var idx = $e.index();
+    var itemsPerSlide = 3;
+    var totalItems = $('.carousel-item').length;
+    
+    if (idx >= totalItems-(itemsPerSlide-1)) {
+        var it = itemsPerSlide - (totalItems - idx);
+        for (var i=0; i<it; i++) {
+            // append slides to end
+            if (e.direction=="left") {
+                $('.carousel-item').eq(i).appendTo('.carousel-inner');
+            }
+            else {
+                $('.carousel-item').eq(0).appendTo('.carousel-inner');
+            }
+        }
+    }
+  });
+
+
+
+
+
+
+
+  $(document).on('ready', function() {
+  
+    $(".regular").slick({
+      dots: false,
+      infinite: true,
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      responsive: [
+              {
+                breakpoint: 998,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                  infinite: true
+                  // dots: true
+                }
+              },
+              {
+                breakpoint: 768,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 1
+                }
+              },
+              {
+                breakpoint: 575,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1
+                }
+              }
+             
+            ]
+    });
+    
+    $(".lazy").slick({
+      lazyLoad: 'ondemand', // ondemand progressive anticipated
+      infinite: true,
+      responsive: [
+              {
+                breakpoint: 998,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                  infinite: true
+                  // dots: true
+                }
+              }
+              
+            ]
+    });
+
+
+    $(".lazy").find('img').addClass('tooltip-image');
+    $(".lazy").find('.slick-prev').addClass('testimonial-prev');
+  });
+  
+  
+  
+  
+  
+  
+  
